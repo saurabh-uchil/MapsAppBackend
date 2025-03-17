@@ -12,6 +12,9 @@ public class MapController {
 	@Autowired
 	WeatherStationsRepo weatherstationsRepo;
 	
+	@Autowired
+	VariablesRepo variablesRepo;
+	
 	
 	@GetMapping("/weatherstations")
 	public List<WeatherStations> showWeatherStations() {
@@ -21,9 +24,9 @@ public class MapController {
 	}
 	
 	@GetMapping("/variables")
-	public Variables showVariables() {
-		Variables var1 = new Variables(11, 1, "AirT_inst", "Deg C", "Air Temp.");
-		return var1;
+	public List<Variables> showVariables() {
+		List<Variables> variablesList = variablesRepo.findAll();
+		return variablesList;
 	}
 	
 	@GetMapping("/data")

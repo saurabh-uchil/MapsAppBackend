@@ -2,6 +2,7 @@ package com.example.PROA.Backend;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,7 +12,10 @@ import jakarta.persistence.Table;
 public class WeatherStations {
 	@Id
 	int id;
+	
+	@Column(name="ws_name")
 	String name;
+	
 	String site;
 	String portfolio;
 	String state;
