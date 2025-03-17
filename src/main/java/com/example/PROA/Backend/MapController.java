@@ -1,16 +1,23 @@
 package com.example.PROA.Backend;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MapController {
 
+	@Autowired
+	WeatherStationsRepo weatherstationsRepo;
+	
 	
 	@GetMapping("/weatherstations")
-	public WeatherStations showWeatherStations() {
-		WeatherStations ws1 =  new WeatherStations(1, "Cohuna North", "Cohuna Solar Farm", "Enel Green Power", "VIC", -35.882762, 144.217208);
-		return ws1;
+	public List<WeatherStations> showWeatherStations() {
+		
+		List<WeatherStations> weatherStationsList = weatherstationsRepo.findAll();
+		return weatherStationsList;
 	}
 	
 	@GetMapping("/variables")

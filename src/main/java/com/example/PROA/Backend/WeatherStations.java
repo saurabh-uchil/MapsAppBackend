@@ -2,8 +2,14 @@ package com.example.PROA.Backend;
 
 import org.springframework.stereotype.Component;
 
-@Component
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="weatherstations")
 public class WeatherStations {
+	@Id
 	int id;
 	String name;
 	String site;
