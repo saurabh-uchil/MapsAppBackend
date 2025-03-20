@@ -1,5 +1,6 @@
 package com.example.PROA.Backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +17,42 @@ public class MapController {
 	@Autowired
 	VariablesRepo variablesRepo;
 	
+	@Autowired
+	DataRepo dataRepo;
+	
 	@CrossOrigin(origins = "http://localhost:3000") // Enable CORS for this endpoint
 	@GetMapping("/weatherstations")
 	public List<WeatherStations> showWeatherStations() {
 		
 		List<WeatherStations> weatherStationsList = weatherstationsRepo.findAll();
+		
 		return weatherStationsList;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:3000") // Enable CORS for this endpoint
-	@GetMapping("/variables")
-	public List<Variables> showVariables() {
-		List<Variables> variablesList = variablesRepo.findAll();
-		return variablesList;
-	}
-	
-	@CrossOrigin(origins = "http://localhost:3000") // Enable CORS for this endpoint
-	@GetMapping("/data")
-	public Data showData() {
-		Data d1 = new Data(120.9, 21.88, "29/08/2023  2:05:00 AM" );
-		return d1;
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/detailedData")
+	public List<WeatherStationsSample> getDetailedData() {
+		List<WeatherStations> ws =  weatherstationsRepo.findAll();
+		List<Variables> variables = variablesRepo.findAll();
+		List<WeatherStationsSample> weatherStationList = new ArrayList<WeatherStationsSample>();
+		
+		for(WeatherStations station: ws) {
+			
+			List<Variables> vsList = new ArrayList<Variables>();
+			for(Variables variable: variables) {
+				
+				if(station.getId() == variable.getId()) {
+					Variables vs =  new Variables(variable.getVar_id(), variable.getId(), variable.getName(),variable.getUnit(), variable.getLong_name());
+					vsList.add(vs);
+				}
+			}
+			
+			List<Object> dataList = dataRepo.findAllRows(station.getId());
+			
+			WeatherStationsSample wsSample = new WeatherStationsSample(station.getId(), station.getName(),station.getSite(), station.portfolio, station.getState(), station.getLatitude(), station.getLongitude(), vsList, dataList);
+			weatherStationList.add(wsSample);
+			}
+		
+		return weatherStationList; 
 	}
 }

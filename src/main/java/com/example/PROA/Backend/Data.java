@@ -1,11 +1,19 @@
 package com.example.PROA.Backend;
 
-import org.springframework.stereotype.Component;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Component
+@Entity
 public class Data {
-	double GHI_inst;
-	double AirT_inst;
+	
+	@Column(nullable=true, name="AirT_inst")
+	double variable1;
+	
+	@Column(nullable=true, name="GHI_inst")
+	double variable2;
+	
+	@Id
 	String timestamp;
 	
 	public Data() {
@@ -13,34 +21,40 @@ public class Data {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Data(double gHI_inst, double airT_inst, String timestamp) {
+	public Data(double variable1, double variable2, String timestamp) {
 		super();
-		GHI_inst = gHI_inst;
-		AirT_inst = airT_inst;
+		this.variable1 = variable1;
+		this.variable2 = variable2;
 		this.timestamp = timestamp;
 	}
-	public double getGHI_inst() {
-		return GHI_inst;
+
+	public double getVariable1() {
+		return variable1;
 	}
-	public void setGHI_inst(double gHI_inst) {
-		GHI_inst = gHI_inst;
+
+	public void setVariable1(double variable1) {
+		this.variable1 = variable1;
 	}
-	public double getAirT_inst() {
-		return AirT_inst;
+
+	public double getVariable2() {
+		return variable2;
 	}
-	public void setAirT_inst(double airT_inst) {
-		AirT_inst = airT_inst;
+
+	public void setVariable2(double variable2) {
+		this.variable2 = variable2;
 	}
+
 	public String getTimestamp() {
 		return timestamp;
 	}
+
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
 	@Override
 	public String toString() {
-		return "Data [GHI_inst=" + GHI_inst + ", AirT_inst=" + AirT_inst + ", timestamp=" + timestamp + "]";
+		return "Data [variable1=" + variable1 + ", variable2=" + variable2 + ", timestamp=" + timestamp + "]";
 	}
 	
 }
