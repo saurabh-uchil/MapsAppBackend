@@ -20,17 +20,9 @@ public class MapController {
 	@Autowired
 	DataRepo dataRepo;
 	
-	@CrossOrigin(origins = "http://localhost:3000") // Enable CORS for this endpoint
-	@GetMapping("/weatherstations")
-	public List<WeatherStations> showWeatherStations() {
-		
-		List<WeatherStations> weatherStationsList = weatherstationsRepo.findAll();
-		
-		return weatherStationsList;
-	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/detailedData")
+	@GetMapping("/weatherstations")
 	public List<WeatherStationsSample> getDetailedData() {
 		List<WeatherStations> ws =  weatherstationsRepo.findAll();
 		List<Variables> variables = variablesRepo.findAll();
